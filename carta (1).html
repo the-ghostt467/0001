@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Você é a estrel mais linda do meu universo!</title>
+    
+    <style>
+        /* O seu CSS (estilo visual) vai aqui dentro */
+        body {
+            background-color: #0a0e1a; /* Cor de fundo  */
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+         h2 {color: #bf80ff;
+            margin-top: 40px; }
+        p {color: #ffffff;}
+        .radio {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: #111;
+            border: 2px solid #bf80ff;
+            border-radius: 12px;
+            padding: 10px 16px;
+            box-shadow: 0 0 15px #bf80ff;
+        }
+
+        .radio-display { 
+            background: #000;
+            color: #bf80ff;
+            font-family: monospace;
+            font-size: 0.85rem;
+            padding: 6px 12px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            letter-spacing: 2px;
+        }
+
+        .radio-controls button {
+            background: transparent;
+            border: 1px solid #bf80ff;
+            color: #bf80ff;
+            border-radius: 6px;
+            padding: 4px 10px;
+            cursor: pointer;
+            margin: 0 2px;
+            font-size: 1rem;
+        }
+        
+    </style>
+</head>
+<body>
+    <h2>-Bem-vinda. Você é a estrela mais linda do meu universo!</h2>
+    <p>Your voice
+        is my
+        favorite soud.</p>
+    <div class="radio">
+        <div class="radio-display">
+            <span id="song-name">I LOVE YOU</span>
+        </div>
+        <div class="radio-controls">
+            <button onclick="prevSong()">⏮</button>
+            <button onclick="togglePlay()">▶</button>
+            <button onclick="nextSong()">⏭</button>
+        </div>
+        <audio id="player"></audio>
+    </div>
+  <script>
+  const songs = [
+    { name: "The Weeknd, JENNIE & Lily Rose Depp - One Of The Girls (Official Audio) - The Weeknd (128k)", file: "The Weeknd, JENNIE & Lily Rose Depp - One Of The Girls (Official Audio) - The Weeknd (128k).mp3" },
+    { name: "Metro Boomin, The Weeknd, 21 Savage - Creepin - LatinHype (128k)", file: "Metro Boomin, The Weeknd, 21 Savage - Creepin - LatinHype (128k).mp3" },
+    { name: "The Weeknd - Call Out My Name (Official Video) - TheWeekndVEVO (youtube)", file: "The Weeknd - Call Out My Name (Official Video) - TheWeekndVEVO (youtube).mp3" }
+  ];
+
+  let current = 0;
+  let playing = false;
+  const player = document.getElementById('player');
+  const songName = document.getElementById('song-name');
+
+  function loadSong(i) {
+    player.src = songs[i].file;
+    songName.textContent = songs[i].name;
+  }
+
+  function togglePlay() {
+    if (playing) {
+      player.pause();
+      playing = false;
+    } else {
+      if (!player.src || player.src === "") { 
+        loadSong(current);
+      }
+      player.play();
+      playing = true;
+    }
+  }
+
+  function nextSong() {
+    current = (current + 1) % songs.length;
+    loadSong(current);
+    if (playing) player.play();
+  }
+
+  function prevSong() {
+    current = (current - 1 + songs.length) % songs.length;
+    loadSong(current);
+    if (playing) player.play();
+  }
+</script>
+</body>
+</html>
